@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="#18181b"/>
+  <!-- Connecting network lines -->
+  <path d="M10 10 L22 10 L22 22 L10 22 Z" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <path d="M10 10 L22 22" stroke="#60a5fa" stroke-width="1.5"/>
+  <!-- System Nodes -->
+  <circle cx="10" cy="10" r="3.5" fill="#3b82f6"/>
+  <circle cx="22" cy="10" r="3" fill="#10b981"/>
+  <circle cx="22" cy="22" r="3.5" fill="#f59e0b"/>
+  <circle cx="10" cy="22" r="3" fill="#8b5cf6"/>
+</svg>
