@@ -66,6 +66,7 @@ export const App: React.FC = () => {
     }
   }, [theme]);
 
+  // Keep page title synchronized with active architecture & SEO terms
   const handleToggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
@@ -88,6 +89,15 @@ export const App: React.FC = () => {
       discussion: defaultTmpl.discussion,
     };
   });
+
+  // Keep page title synchronized with active architecture & SEO terms
+  useEffect(() => {
+    if (graph.meta.name && graph.meta.name !== 'New Architecture') {
+      document.title = `${graph.meta.name} — SysDesign Sim | System Design & Architecture Whiteboard`;
+    } else {
+      document.title = 'SysDesign Sim — Free System Design Tool, Architecture Diagrams & Excalidraw Whiteboard Simulator';
+    }
+  }, [graph.meta.name]);
 
   // Tools & UI states
   const [activeTool, setActiveTool] = useState<
@@ -1127,39 +1137,72 @@ export const App: React.FC = () => {
         </div>
       </main>
 
-      {/* Modals */}
-      <CommandPaletteModal
-        isOpen={isCommandPaletteOpen}
-        onClose={() => setIsCommandPaletteOpen(false)}
-        onSelectComponent={handleAddComponent}
-      />
+      {/* Lazy-loaded Modals */}
+      <React.Suspense fallback={null}>
+        {isCommandPaletteOpen && (
+          <CommandPaletteModal
+            isOpen={isCommandPaletteOpen}
+            onClose={() => setIsCommandPaletteOpen(false)}
+            onSelectComponent={handleAddComponent}
+          />
+        )}
 
-      <DslModal
-        isOpen={isDslModalOpen}
-        onClose={() => setIsDslModalOpen(false)}
-        graph={graph}
-        onOpenImport={() => setIsImportModalOpen(true)}
-      />
+        {isDslModalOpen && (
+          <DslModal
+            isOpen={isDslModalOpen}
+            onClose={() => setIsDslModalOpen(false)}
+            graph={graph}
+            onOpenImport={() => setIsImportModalOpen(true)}
+          />
+        )}
 
-      <AiCritiqueModal
-        isOpen={isAiCritiqueOpen}
-        onClose={() => setIsAiCritiqueOpen(false)}
-        graph={graph}
-        metrics={simulationMetrics}
-      />
+        {isAiCritiqueOpen && (
+          <AiCritiqueModal
+            isOpen={isAiCritiqueOpen}
+            onClose={() => setIsAiCritiqueOpen(false)}
+            graph={graph}
+            metrics={simulationMetrics}
+          />
+        )}
 
-      <SettingsModal
-        isOpen={isSettingsModalOpen}
-        onClose={() => setIsSettingsModalOpen(false)}
-        baseUrl={aiBaseUrl}
-        onBaseUrlChange={handleBaseUrlChange}
-        apiKey={apiKey}
-        onApiKeyChange={handleApiKeyChange}
-        model={aiModel}
-        onModelChange={handleModelChange}
-        liveCritiqueEnabled={liveCritiqueEnabled}
-        onToggleLiveCritique={handleToggleLiveCritique}
-      />
+        {isSettingsModalOpen && (
+          <SettingsModal
+            isOpen={isSettingsModalOpen}
+            onClose={() => setIsSettingsModalOpen(false)}
+            baseUrl={aiBaseUrl}
+            onBaseUrlChange={handleBaseUrlChange}
+            apiKey={apiKey}
+            onApiKeyChange={handleApiKeyChange}
+            model={aiModel}
+            onModelChange={handleModelChange}
+            liveCritiqueEnabled={liveCritiqueEnabled}
+            onToggleLiveCritique={handleToggleLiveCritique}
+          />
+        )}
+
+        {isShareModalOpen && (
+          <ShareModal
+            isOpen={isShareModalOpen}
+            onClose={() => setIsShareModalOpen(false)}
+            graph={graph}
+            onOpenImport={() => setIsImportModalOpen(true)}
+          />
+        )}
+
+        {isImportModalOpen && (
+          <ImportModal
+            isOpen={isImportModalOpen}
+            onClose={() => {
+              setIsImportModalOpen(false);
+              setImportInitialContent('');
+              setImportInitialFileName('');
+            }}
+            onImportGraph={handleImportGraph}
+            initialFileContent={importInitialContent}
+            initialFileName={importInitialFileName}
+          />
+        )}
+      </React.Suspense>
 
       <LiveCritiquePanel
         state={liveCritiqueState}
@@ -1172,25 +1215,6 @@ export const App: React.FC = () => {
           setIsAiCritiqueOpen(true);
         }}
         onRetry={handleRetryLiveCritique}
-      />
-
-      <ShareModal
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        graph={graph}
-        onOpenImport={() => setIsImportModalOpen(true)}
-      />
-
-      <ImportModal
-        isOpen={isImportModalOpen}
-        onClose={() => {
-          setIsImportModalOpen(false);
-          setImportInitialContent('');
-          setImportInitialFileName('');
-        }}
-        onImportGraph={handleImportGraph}
-        initialFileContent={importInitialContent}
-        initialFileName={importInitialFileName}
       />
 
       {/* Global Drag & Drop File Indicator */}

@@ -280,11 +280,11 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
       pros: discussion.pros.map((p) =>
         p.id === id
           ? {
-              ...p,
-              title: editProTitle.trim(),
-              content: editProContent.trim(),
-              impact: editProImpact,
-            }
+            ...p,
+            title: editProTitle.trim(),
+            content: editProContent.trim(),
+            impact: editProImpact,
+          }
           : p
       ),
     });
@@ -337,12 +337,12 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
       cons: discussion.cons.map((c) =>
         c.id === id
           ? {
-              ...c,
-              title: editConTitle.trim(),
-              content: editConContent.trim(),
-              mitigationOrAlternative: editConMitigation.trim() || undefined,
-              severity: editConSeverity,
-            }
+            ...c,
+            title: editConTitle.trim(),
+            content: editConContent.trim(),
+            mitigationOrAlternative: editConMitigation.trim() || undefined,
+            severity: editConSeverity,
+          }
           : c
       ),
     });
@@ -392,11 +392,11 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
       staffQnA: discussion.staffQnA.map((q) =>
         q.id === id
           ? {
-              ...q,
-              question: editQuestion.trim(),
-              answer: editAnswer.trim(),
-              keyTakeaway: editKeyTakeaway.trim(),
-            }
+            ...q,
+            question: editQuestion.trim(),
+            answer: editAnswer.trim(),
+            keyTakeaway: editKeyTakeaway.trim(),
+          }
           : q
       ),
     });
@@ -489,7 +489,7 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
   return (
     <aside className="absolute top-14 right-0 bottom-0 w-full sm:w-[460px] md:w-[500px] lg:w-[520px] bg-white dark:bg-zinc-900 border-l border-gray-200 dark:border-zinc-800 shadow-2xl z-30 flex flex-col overflow-hidden animate-in fade-in slide-in-from-right duration-200 transition-colors">
       {/* Top Header */}
-      <div className="p-4 border-b border-gray-200 dark:border-zinc-800 bg-gray-50/80 dark:bg-zinc-850/60 flex items-start justify-between gap-3">
+      <div className="p-4 border-b border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-indigo-600/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
@@ -623,65 +623,59 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
         <div className="flex items-center gap-1 overflow-x-auto no-scrollbar text-xs">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap transition-colors ${
-              activeTab === 'all'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
-            }`}
+            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap transition-colors ${activeTab === 'all'
+              ? 'bg-indigo-600 text-white'
+              : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
+              }`}
           >
             All Insights
           </button>
           <button
             onClick={() => setActiveTab('notes')}
-            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${
-              activeTab === 'notes'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
-            }`}
+            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${activeTab === 'notes'
+              ? 'bg-indigo-600 text-white'
+              : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
+              }`}
           >
             <FileText className="w-3 h-3 text-indigo-500" />
             Notes
           </button>
           <button
             onClick={() => setActiveTab('pros_cons')}
-            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${
-              activeTab === 'pros_cons'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
-            }`}
+            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${activeTab === 'pros_cons'
+              ? 'bg-indigo-600 text-white'
+              : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
+              }`}
           >
             <CheckCircle2 className="w-3 h-3 text-emerald-500" />
             Pros & Cons ({totalProsCons})
           </button>
           <button
             onClick={() => setActiveTab('qna')}
-            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${
-              activeTab === 'qna'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
-            }`}
+            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${activeTab === 'qna'
+              ? 'bg-indigo-600 text-white'
+              : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
+              }`}
           >
             <HelpCircle className="w-3 h-3 text-amber-500" />
             Staff Q&A ({discussion?.staffQnA?.length || 0})
           </button>
           <button
             onClick={() => setActiveTab('tradeoffs')}
-            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${
-              activeTab === 'tradeoffs'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
-            }`}
+            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${activeTab === 'tradeoffs'
+              ? 'bg-indigo-600 text-white'
+              : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
+              }`}
           >
             <Scale className="w-3 h-3 text-purple-500" />
             Trade-offs ({discussion?.tradeoffs?.length || 0})
           </button>
           <button
             onClick={() => setActiveTab('capacity')}
-            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${
-              activeTab === 'capacity'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
-            }`}
+            className={`px-2.5 py-1 rounded-md font-medium whitespace-nowrap flex items-center gap-1 transition-colors ${activeTab === 'capacity'
+              ? 'bg-indigo-600 text-white'
+              : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800'
+              }`}
           >
             <Calculator className="w-3 h-3 text-sky-500" />
             Capacity Math
@@ -1094,11 +1088,10 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
                           </span>
                           {con.severity && (
                             <span
-                              className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-medium border ${
-                                con.severity === 'critical'
-                                  ? 'bg-red-50 dark:bg-red-950/60 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800'
-                                  : 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800'
-                              }`}
+                              className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-medium border ${con.severity === 'critical'
+                                ? 'bg-red-50 dark:bg-red-950/60 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800'
+                                : 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800'
+                                }`}
                             >
                               {con.severity.toUpperCase()}
                             </span>
@@ -1752,7 +1745,7 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
       </div>
 
       {/* Footer Info */}
-      <div className="p-3 border-t border-gray-200 dark:border-zinc-800 bg-gray-50/80 dark:bg-zinc-850/60 flex items-center justify-between text-[11px] text-gray-500 dark:text-zinc-400 select-none">
+      <div className="p-3 border-t border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-between text-[11px] text-gray-500 dark:text-zinc-400 select-none">
         <div className="flex items-center gap-1.5">
           <Layers className="w-3.5 h-3.5 text-indigo-500" />
           <span>SysDesign Architecture Suite</span>
@@ -1768,9 +1761,6 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
             <Coffee className="w-3.5 h-3.5" />
             <span>Support on Ko-fi</span>
           </a>
-          <span className="font-mono text-[10px]">
-            {isPreloaded ? 'Preloaded Reference' : 'Custom Workspace'}
-          </span>
         </div>
       </div>
     </aside>
