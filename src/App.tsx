@@ -12,7 +12,6 @@ import { SimulationEngine } from './engine/simulation';
 import { ARCHITECTURE_TEMPLATES } from './engine/templates';
 import { lintArchitecture } from './engine/linter';
 import { ComponentDefinition } from './data/componentLibrary';
-import { CommandPaletteModal } from './components/CommandPaletteModal';
 import {
   serializeGraphToUrl,
   deserializeGraphFromUrl,
@@ -25,15 +24,30 @@ import { ComponentPalette } from './components/ComponentPalette';
 import { Inspector } from './components/Inspector';
 import { DiscussionPanel } from './components/DiscussionPanel';
 import { SimulationOverlay } from './components/SimulationOverlay';
-import { DslModal } from './components/DslModal';
-import { AiCritiqueModal } from './components/AiCritiqueModal';
-import { ShareModal } from './components/ShareModal';
-import { ImportModal } from './components/ImportModal';
-import { SettingsModal } from './components/SettingsModal';
 import { LiveCritiquePanel, LiveCritiqueState } from './components/LiveCritiquePanel';
 import { buildConnectionCritiquePrompt, requestOpenAiCritique } from './engine/llmCritique';
 import { RoughCanvas } from './canvas/RoughCanvas';
-import { Upload } from 'lucide-react';
+import { Upload, Coffee, ExternalLink } from 'lucide-react';
+
+// Code-split heavy modals to optimize initial bundle size & Core Web Vitals
+const CommandPaletteModal = React.lazy(() =>
+  import('./components/CommandPaletteModal').then((m) => ({ default: m.CommandPaletteModal }))
+);
+const DslModal = React.lazy(() =>
+  import('./components/DslModal').then((m) => ({ default: m.DslModal }))
+);
+const AiCritiqueModal = React.lazy(() =>
+  import('./components/AiCritiqueModal').then((m) => ({ default: m.AiCritiqueModal }))
+);
+const SettingsModal = React.lazy(() =>
+  import('./components/SettingsModal').then((m) => ({ default: m.SettingsModal }))
+);
+const ShareModal = React.lazy(() =>
+  import('./components/ShareModal').then((m) => ({ default: m.ShareModal }))
+);
+const ImportModal = React.lazy(() =>
+  import('./components/ImportModal').then((m) => ({ default: m.ImportModal }))
+);
 
 export const App: React.FC = () => {
   // Theme state: 'light' | 'dark'
@@ -1090,6 +1104,27 @@ export const App: React.FC = () => {
             }
           }}
         />
+
+        {/* Bottom Ko-fi Donation Link */}
+        <div
+          className={`absolute bottom-6 z-20 pointer-events-auto transition-all duration-200 -translate-x-1/2 ${
+            isDiscussionOpen
+              ? 'left-1/2 sm:left-[calc((100%-460px)/2)] md:left-[calc((100%-500px)/2)] lg:left-[calc((100%-520px)/2)]'
+              : 'left-1/2'
+          }`}
+        >
+          <a
+            href="https://ko-fi.com/veydh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 dark:bg-zinc-900/95 hover:bg-amber-50 dark:hover:bg-amber-950/50 border border-gray-200 dark:border-zinc-800 hover:border-amber-400 dark:hover:border-amber-500 text-gray-700 dark:text-zinc-300 hover:text-amber-700 dark:hover:text-amber-400 shadow-md backdrop-blur text-xs font-medium transition-all group select-none"
+            title="Support this project on Ko-fi"
+          >
+            <Coffee className="w-3.5 h-3.5 text-amber-500 group-hover:scale-110 transition-transform duration-150" />
+            <span>Support on Ko-fi</span>
+            <ExternalLink className="w-3 h-3 text-gray-400 dark:text-zinc-500 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors" />
+          </a>
+        </div>
       </main>
 
       {/* Modals */}

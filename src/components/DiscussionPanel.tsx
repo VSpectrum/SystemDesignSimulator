@@ -27,6 +27,7 @@ import {
   BookOpen,
   FileText,
   Pencil,
+  Coffee,
 } from 'lucide-react';
 
 interface DiscussionPanelProps {
@@ -1756,9 +1757,21 @@ export const DiscussionPanel: React.FC<DiscussionPanelProps> = ({
           <Layers className="w-3.5 h-3.5 text-indigo-500" />
           <span>SysDesign Architecture Suite</span>
         </div>
-        <span className="font-mono text-[10px]">
-          {isPreloaded ? 'Preloaded Reference' : 'Custom Workspace'}
-        </span>
+        <div className="flex items-center gap-3">
+          <a
+            href="https://ko-fi.com/veydh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors font-medium hover:underline"
+            title="Support on Ko-fi"
+          >
+            <Coffee className="w-3.5 h-3.5" />
+            <span>Support on Ko-fi</span>
+          </a>
+          <span className="font-mono text-[10px]">
+            {isPreloaded ? 'Preloaded Reference' : 'Custom Workspace'}
+          </span>
+        </div>
       </div>
     </aside>
   );
